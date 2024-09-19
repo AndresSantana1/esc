@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Copia de Texto</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            margin-top: 5px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        #texto {
+            border: 1px solid #ddd;
+            padding: 5px;
+            margin-bottom: 10px;
+            background-color: #f9f9f9;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        h1{
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+
+        label, input{
+            margin-bottom: 10px;
+        }
+        #calcularBtn{
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Mensaje inicial</h1>
+<textarea id="texto1" rows="3" cols="50">
+*Mensajería ESC* por favor llenar el formulario para su *Domicilio*: 
+https://andressantana1.github.io/shipi/ 
+</textarea>
+    <br>
+    <button id="copiarBtn1">Copiar Texto</button>
+
+    <script>
+        document.getElementById('copiarBtn1').onclick = function() {
+            const texto = document.getElementById('texto1');
+            texto.select();
+            document.execCommand('copy');
+        };
+    </script>
+
+<h1>Valor</h1>
+<label for="distancia">Distancia (km):</label>
+<input type="number" id="distancia" placeholder="Ingrese la distancia" required>
+<br>
+<label for="tiempo">Tiempo &nbsp&nbsp(min):</label>
+<input type="number" id="tiempo" placeholder="Ingrese el tiempo" required>
+<br>
+<button id="calcularBtn">Calcular Domicilio</button>
+<br>
+<textarea id="texto2" rows="3" cols="50">
+
+</textarea>
+<script>
+    document.getElementById('calcularBtn').onclick = function() {
+        const distancia = parseFloat(document.getElementById('distancia').value);
+        const tiempo = parseFloat(document.getElementById('tiempo').value);
+        console.log(distancia)
+        console.log(tiempo)
+        if (!distancia || !tiempo ) {
+            alert('Por favor, complete todos los campos.');
+            return;
+        }
+        const costoViaje=(1430.28+167.67*distancia+tiempo*150)/0.8
+
+        if (costoViaje >= 0 && costoViaje < 4250) {
+                valorAjustado = 4000;
+            } else if (costoViaje >= 4250 && costoViaje < 4750) {
+                valorAjustado = 4500;
+            } else if (costoViaje>= 4750 && costoViaje< 5250) {
+                valorAjustado = 5000;
+            } else if (costoViaje>= 5250 && costoViaje< 5750) {
+                valorAjustado = 5500;
+            } else if (costoViaje>= 5750 && costoViaje< 6250) {
+                valorAjustado = 6000;
+            } else if (costoViaje>= 6250 && costoViaje< 6750) {
+                valorAjustado = 6500;
+            } else {
+                valorAjustado = "Fuera de rango";
+            }
+
+        const formateador = new Intl.NumberFormat('es-CO', {
+                style: 'decimal',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            });
+
+const resultado = `*Valor:* $${formateador.format(valorAjustado.toFixed(0))}
+    
+Me confirmas para enviar al domiciliario.`;
+        
+        document.getElementById('texto2').textContent = resultado;
+    };
+</script>
+
+<br>
+<button id="copiarBtn2">Copiar Texto</button>
+
+<script>
+    document.getElementById('copiarBtn2').onclick = function() {
+        const texto = document.getElementById('texto2');
+        texto.select();
+        document.execCommand('copy');
+    };
+</script>
+
+<h1>Final</h1>
+<textarea id="texto3" rows="1" cols="50">
+Listo el domiciliario va en camino.
+</textarea>
+<br>
+<button id="copiarBtn3">Copiar Texto</button>
+
+<script>
+    document.getElementById('copiarBtn3').onclick = function() {
+        const texto = document.getElementById('texto3');
+        texto.select();
+        document.execCommand('copy');
+    };
+</script>
+
+
+</body>
+</html>
